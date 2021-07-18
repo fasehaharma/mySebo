@@ -1,14 +1,16 @@
-package com.example.mysebo;
+package com.example.mysebo.role.user;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class ReservationDetailActivity extends AppCompatActivity {
+import com.example.mysebo.R;
+
+public class EquipmentDetailsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reservation_detail);
+        setContentView(R.layout.activity_equipment_details);
     }
 }

@@ -1,9 +1,11 @@
-package com.example.mysebo;
+package com.example.mysebo.role.user;
 
+import androidx.activity.result.contract.ActivityResultContract;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -18,7 +20,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCanceledListener;
+import com.example.mysebo.R;
+import com.example.mysebo.databinding.ActivityUserProfileBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,24 +32,33 @@ import com.squareup.picasso.Picasso;
 
 public class UserProfileActivity extends AppCompatActivity {
 
-    TextView FullName, Email, phone;
-    FirebaseAuth fAuth;
-    Button Change, Reset, Back;
-    ImageView ProfilePicture;
-    StorageReference storageReference;
+    private TextView tvFullName;
+    private TextView tvEmail;
+    private TextView tvPhone;
+
+    private FirebaseAuth fAuth;
+
+    private Button btnChange;
+    private Button btnReset;
+    private Button btnBack;
+
+    private ImageView ivProfilePicture;
+    private StorageReference storageReference;
+    private ActivityUserProfileBinding activityUserProfileBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_profile);
 
-        FullName = findViewById(R.id.tvName);
-        Email = findViewById(R.id.tvEmaillAdd);
-        phone = findViewById(R.id.tvPhone);
-        Change = findViewById(R.id.btnChangeProfile);
-        Reset = findViewById(R.id.btnResetPassword);
-        Back = findViewById(R.id.btnReturn);
-        ProfilePicture = findViewById(R.id.ProfilePic);
+        activityUserProfileBinding = DataBindingUtil.setContentView(this, R.layout.activity_user_profile);
+
+        tvFullName = activityUserProfileBinding.tvName;
+        tvEmail = findViewById(R.id.tvEmaillAdd);
+        tvPhone = findViewById(R.id.tvPhone);
+        btnChange = findViewById(R.id.btnChangeProfile);
+        btnReset = findViewById(R.id.btnResetPassword);
+        btnBack = findViewById(R.id.btnReturn);
+        ivProfilePicture = findViewById(R.id.ProfilePic);
 
         fAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -55,11 +67,12 @@ public class UserProfileActivity extends AppCompatActivity {
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                Picasso.get().load(uri).into(ProfilePicture);
+                Picasso.get().load(uri).into(ivProfilePicture);
             }
         });
 
-        Reset.setOnClickListener(new View.OnClickListener() {
+
+        btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EditText resetMail = new EditText(v.getContext());
@@ -79,7 +92,7 @@ public class UserProfileActivity extends AppCompatActivity {
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(UserProfileActivity.this, "Reset Link Sent To Your Email", Toast.LENGTH_SHORT).show();
                             }
-                        }) .addOnFailureListener(new OnFailureListener() {
+                        }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
                                 Toast.makeText(UserProfileActivity.this, "Error! Reset Link is Not Sent" + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -100,27 +113,19 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
 
-        Change.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // open gallery
-
-                Intent openGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(openGalleryIntent, 1000);
-            }
-        });
+  
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1000){
-            if (requestCode == Activity.RESULT_OK){
+        if (requestCode == 1000) {
+            if (requestCode == Activity.RESULT_OK) {
                 Uri imageUri = data.getData();
                 //ProfilePicture.setImageURI(imageUri);
 
                 uploadImageToFirebase(imageUri);
-                
+
             }
         }
 
@@ -135,7 +140,7 @@ public class UserProfileActivity extends AppCompatActivity {
                 fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        Picasso.get().load(uri).into(ProfilePicture);
+                        Picasso.get().load(uri).into(ivProfilePicture);
                     }
                 });
             }

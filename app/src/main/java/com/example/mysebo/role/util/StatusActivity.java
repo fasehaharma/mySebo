@@ -1,8 +1,10 @@
-package com.example.mysebo;
+package com.example.mysebo.role.util;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.mysebo.R;
 
 public class StatusActivity extends AppCompatActivity {
 
