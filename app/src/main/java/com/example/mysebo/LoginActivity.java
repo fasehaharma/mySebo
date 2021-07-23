@@ -41,11 +41,19 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         activityLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
+        fAuth = FirebaseAuth.getInstance();
+
+
+        if(fAuth.getCurrentUser() != null){
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+
+        }
+
+
 
         eEmail = activityLoginBinding.email;
         ePassword = activityLoginBinding.password;
         progressBar = activityLoginBinding.progressBar2;
-        fAuth = FirebaseAuth.getInstance();
         eLogin = activityLoginBinding.btnLogin;
         eCreateAccount = activityLoginBinding.tvCreateAcc;
         eForgot = activityLoginBinding.tvForgotPass;
