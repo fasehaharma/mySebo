@@ -56,7 +56,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView9"
         app:layout_constraintVertical_bias="0.062" />
 
-    <TextView
+    <EditText
         android:id="@+id/tvName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -69,8 +69,9 @@
         android:paddingTop="10dp"
         android:paddingRight="10dp"
         android:paddingBottom="10dp"
-        android:text="Your Name"
+        android:hint="Your Name"
         android:textSize="16sp"
+        android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -94,7 +95,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvName"
         app:layout_constraintVertical_bias="0.042" />
 
-    <TextView
+    <EditText
         android:id="@+id/tvEmaillAdd"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -107,8 +108,9 @@
         android:paddingTop="10dp"
         android:paddingRight="10dp"
         android:paddingBottom="10dp"
-        android:text="Your Email Address"
+        android:hint="Your Email Address"
         android:textSize="16sp"
+        android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -132,7 +134,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvEmaillAdd"
         app:layout_constraintVertical_bias="0.048" />
 
-    <TextView
+    <EditText
         android:id="@+id/tvPhone"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -145,8 +147,9 @@
         android:paddingTop="10dp"
         android:paddingRight="10dp"
         android:paddingBottom="10dp"
-        android:text="Your Phone Number"
+        android:hint="Your Phone Number"
         android:textSize="16sp"
+        android:inputType="number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

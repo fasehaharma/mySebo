@@ -137,7 +137,6 @@
             app:layout_constraintBottom_toTopOf="@+id/tvCreateAcc"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
-        " />
 
         <TextView
             android:id="@+id/tvCreateAcc"

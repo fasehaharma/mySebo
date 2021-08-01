@@ -43,7 +43,7 @@ public class EquipmentDetailsActivity extends AppCompatActivity implements View.
     private ItemEquipmentAdapter itemEquipmentAdapter;
 
     private final int TYPE_BORROW_DATE = 2001;
-    private final int TYPE_RETURN_DATE = 2001;
+    private final int TYPE_RETURN_DATE = 2002;
     private int type = 0;
 
 
