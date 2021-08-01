@@ -21,7 +21,6 @@ public class ConditionsActivity extends AppCompatActivity implements View.OnClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_conditions);
 
 
         activityConditionsBinding = DataBindingUtil.setContentView(this, R.layout.activity_conditions);
