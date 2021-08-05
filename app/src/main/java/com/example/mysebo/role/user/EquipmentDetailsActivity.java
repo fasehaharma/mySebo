@@ -101,11 +101,12 @@ public class EquipmentDetailsActivity extends AppCompatActivity implements View.
 
             Intent intent = new Intent(this, ConditionsActivity.class);
             bundle.putParcelableArrayList(Constant.EQUIPMENT_LIST,itemEquipmentAdapter.getEquipmentList());
-            intent.putExtras(bundle);
             bundle.putString(Constant.EVENT_CLUB,sEventClub);
             bundle.putString(Constant.EVENT_NAME,sEventName);
             bundle.putString(Constant.STAFF_ID,sStaffID);
             bundle.putString(Constant.PHONE_NUMBER,sPhone);
+
+            intent.putExtras(bundle);
 
             startActivity(intent);
 

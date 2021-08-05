@@ -18,20 +18,28 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    EditText eName, eEmail, ePassword, ePhone;
-    Button eRegister;
-    TextView eLogin;
-    FirebaseAuth fAuth;
-    ProgressBar progressBar;
+    private EditText eName, eEmail, ePassword, ePhone;
+    private Button eRegister;
+    private TextView eLogin;
+    private FirebaseAuth fAuth;
+    private ProgressBar progressBar;
+
+    private FirebaseFirestore firebaseFirestore;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        firebaseFirestore = FirebaseFirestore.getInstance();
 
         eName = findViewById(R.id.FullName);
         eEmail = findViewById(R.id.EmailReg);
@@ -43,7 +51,7 @@ public class RegisterActivity extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         progressBar = findViewById(R.id.progressBar);
 
-        if (fAuth.getCurrentUser() != null){
+        if (fAuth.getCurrentUser() != null) {
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
             finish();
         }
@@ -54,17 +62,17 @@ public class RegisterActivity extends AppCompatActivity {
                 String email = eEmail.getText().toString().trim();
                 String password = ePassword.getText().toString().trim();
 
-                if (TextUtils.isEmpty(email)){
+                if (TextUtils.isEmpty(email)) {
                     eEmail.setError("Email is Required.");
                     return;
                 }
 
-                if (TextUtils.isEmpty(password)){
+                if (TextUtils.isEmpty(password)) {
                     ePassword.setError("Password is Required.");
                     return;
                 }
 
-                if (password.length() <8){
+                if (password.length() < 8) {
                     ePassword.setError("Password must be at least 8 character");
                     return;
                 }
@@ -76,11 +84,21 @@ public class RegisterActivity extends AppCompatActivity {
                 fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()){
+                        if (task.isSuccessful()) {
+                            String name =eName.getText().toString();
+                            String phone = ePhone.getText().toString();
+
+                            Map<String, Object> newData = new HashMap<>();
+                            newData.put("id",fAuth.getCurrentUser().getUid());
+                            newData.put("name",name);
+                            newData.put("email",email);
+                            newData.put("phone",phone);
+
+                            firebaseFirestore.collection("user").document(fAuth.getCurrentUser().getUid()).set(newData);
                             Toast.makeText(RegisterActivity.this, "User Created.", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
-                        }else {
+                        } else {
                             Toast.makeText(RegisterActivity.this, "Error!" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);
                         }
