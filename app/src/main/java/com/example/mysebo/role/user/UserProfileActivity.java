@@ -30,7 +30,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
-public class UserProfileActivity extends AppCompatActivity {
+public class UserProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView tvFullName;
     private TextView tvEmail;
@@ -53,12 +53,16 @@ public class UserProfileActivity extends AppCompatActivity {
         activityUserProfileBinding = DataBindingUtil.setContentView(this, R.layout.activity_user_profile);
 
         tvFullName = activityUserProfileBinding.tvName;
-        tvEmail = findViewById(R.id.tvEmaillAdd);
-        tvPhone = findViewById(R.id.tvPhone);
-        btnChange = findViewById(R.id.btnChangeProfile);
-        btnReset = findViewById(R.id.btnResetPassword);
-        btnBack = findViewById(R.id.btnReturn);
-        ivProfilePicture = findViewById(R.id.ProfilePic);
+        tvEmail = activityUserProfileBinding.tvEmaillAdd;
+        tvPhone = activityUserProfileBinding.tvPhone;
+
+        btnChange = activityUserProfileBinding.btnChangeProfile;
+        btnReset = activityUserProfileBinding.btnResetPassword;
+        btnBack = activityUserProfileBinding.btnReturn;
+
+        btnBack.setOnClickListener(this);
+
+        ivProfilePicture = activityUserProfileBinding.ProfilePic;
 
         fAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -150,5 +154,12 @@ public class UserProfileActivity extends AppCompatActivity {
                 Toast.makeText(UserProfileActivity.this, "Failed.", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void onClick(View v) {
+        if (v == btnBack) {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+        }
     }
 }
