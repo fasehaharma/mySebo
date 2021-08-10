@@ -37,6 +37,10 @@ public class EquipmentDetailsActivity extends AppCompatActivity implements View.
     private String sEventName;
     private String sStaffID;
     private String sPhone;
+
+    private String sDateStart;
+    private String sDateEnd;
+
     private DatePickerDialog datePickerDialog;
 
     private RecyclerView rvItemEquipment;
@@ -63,7 +67,7 @@ public class EquipmentDetailsActivity extends AppCompatActivity implements View.
 
         Bundle extras = getIntent().getExtras();
 
-        sEventClub = extras.getString(Constant.EVENT_CLUB);
+        sEventClub = extras.getString(Constant.EVENT_ORGANIZATION);
         sEventName = extras.getString(Constant.EVENT_NAME);
         sStaffID = extras.getString(Constant.STAFF_ID);
         sPhone = extras.getString(Constant.PHONE_NUMBER);
@@ -101,10 +105,13 @@ public class EquipmentDetailsActivity extends AppCompatActivity implements View.
 
             Intent intent = new Intent(this, ConditionsActivity.class);
             bundle.putParcelableArrayList(Constant.EQUIPMENT_LIST,itemEquipmentAdapter.getEquipmentList());
-            bundle.putString(Constant.EVENT_CLUB,sEventClub);
+            bundle.putString(Constant.EVENT_ORGANIZATION,sEventClub);
             bundle.putString(Constant.EVENT_NAME,sEventName);
             bundle.putString(Constant.STAFF_ID,sStaffID);
             bundle.putString(Constant.PHONE_NUMBER,sPhone);
+
+            bundle.putString(Constant.DATE_START, sDateStart);
+            bundle.putString(Constant.DATE_END, sDateEnd);
 
             intent.putExtras(bundle);
 
@@ -128,9 +135,11 @@ public class EquipmentDetailsActivity extends AppCompatActivity implements View.
         Log.d(TAG, "onDateSet: " + year);
 
         if (type == TYPE_BORROW_DATE) {
-            btnBorrowDate.setText(year + "-" + month + "-" + dayOfMonth);
+            sDateStart =year + "-" + month + "-" + dayOfMonth;
+            btnBorrowDate.setText(sDateStart);
         } else if (type == TYPE_RETURN_DATE) {
-            btnReturnDate.setText(year + "-" + month + "-" + dayOfMonth);
+            sDateEnd =year + "-" + month + "-" + dayOfMonth;
+            btnReturnDate.setText(sDateEnd);
         }
     }
 }

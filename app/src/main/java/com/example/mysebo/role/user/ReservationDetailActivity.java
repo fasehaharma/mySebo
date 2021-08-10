@@ -64,7 +64,7 @@ public class ReservationDetailActivity extends AppCompatActivity implements View
 
 
             Intent intent = new Intent(this, EquipmentDetailsActivity.class);
-            intent.putExtra(Constant.EVENT_CLUB,sEventClub);
+            intent.putExtra(Constant.EVENT_ORGANIZATION,sEventClub);
             intent.putExtra(Constant.EVENT_NAME,sEventName);
             intent.putExtra(Constant.STAFF_ID,sStaffID);
             intent.putExtra(Constant.PHONE_NUMBER,sPhone);

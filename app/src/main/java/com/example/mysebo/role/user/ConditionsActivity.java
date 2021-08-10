@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -12,13 +13,15 @@ import android.widget.TextView;
 import com.example.mysebo.Constant;
 import com.example.mysebo.R;
 import com.example.mysebo.databinding.ActivityConditionsBinding;
-import com.example.mysebo.role.user.model.Equipment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class ConditionsActivity extends AppCompatActivity implements View.OnClickListener {
@@ -28,15 +31,23 @@ public class ConditionsActivity extends AppCompatActivity implements View.OnClic
     private Button btnSubmit;
     private TextView tvBackPages2;
 
-    private String sEventClub;
+    private String sEventOrganization;
     private String sEventName;
     private String sStaffID;
     private String sPhone;
+    private String sDateStart;
+    private String sDateEnd;
+
+    private Date dDateStart;
+    private Date dDateEnd;
+
+
 
     private final String TAG = ConditionsActivity.class.getSimpleName();
 
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth fAuth;
+    private ArrayList<Parcelable> equipmentList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,17 +64,30 @@ public class ConditionsActivity extends AppCompatActivity implements View.OnClic
 
         Bundle extras = getIntent().getExtras();
 
-        sEventClub = extras.getString(Constant.EVENT_CLUB);
+        sEventOrganization = extras.getString(Constant.EVENT_ORGANIZATION);
         sEventName = extras.getString(Constant.EVENT_NAME);
         sStaffID = extras.getString(Constant.STAFF_ID);
         sPhone = extras.getString(Constant.PHONE_NUMBER);
-        List<Equipment> equipmentList = this.getIntent().getExtras().getParcelableArrayList(Constant.EQUIPMENT_LIST);
+        sDateStart = extras.getString(Constant.DATE_START);
+        sDateEnd = extras.getString(Constant.DATE_END);
+        equipmentList = this.getIntent().getExtras().getParcelableArrayList(Constant.EQUIPMENT_LIST);
 
 
-        Log.d(TAG, "onCreate: " + sEventClub);
+        Log.d(TAG, "onCreate: " + sEventOrganization);
         Log.d(TAG, "onCreate: " + sEventName);
         Log.d(TAG, "onCreate: " + sStaffID);
         Log.d(TAG, "onCreate: " + sPhone);
+
+        Log.d(TAG, "onCreate:" + sDateStart);
+        Log.d(TAG, "onCreate:" + sDateEnd);
+         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            dDateStart = format.parse(sDateStart);
+            dDateEnd = format.parse(sDateEnd);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         btnSubmit.setOnClickListener(this);
         tvBackPages2.setOnClickListener(this);
@@ -74,13 +98,20 @@ public class ConditionsActivity extends AppCompatActivity implements View.OnClic
         if(v == btnSubmit){
             String uid = fAuth.getCurrentUser().getUid();
             CollectionReference equipmentReservation = firebaseFirestore.collection("EquipmentReservation");
-            equipmentReservation.document().set();
+
 
             Map<String, Object> newData = new HashMap<>();
-            newData.put("id",fAuth.getCurrentUser().getUid());
-            newData.put("user",user);
-            newData.put("dateEnd",12);
-            newData.put("dateStart",August);
+
+            newData.put("id",uid);
+            newData.put("dateEnd",dDateEnd);
+            newData.put("dateStart",dDateStart);
+            newData.put("equipment",equipmentList);
+            newData.put("eventName",sEventName);
+            newData.put("eventOrganization",sEventOrganization);
+            newData.put("phoneNumber", sPhone);
+
+
+            equipmentReservation.document().set(newData);
 
         }
 
