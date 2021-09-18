@@ -32,7 +32,6 @@ public class EquipmentDetailsActivity extends AppCompatActivity implements View.
     private Button btnReturnDate;
     private Button btnAddItem;
 
-
     private String sEventClub;
     private String sEventName;
     private String sStaffID;
@@ -57,9 +56,7 @@ public class EquipmentDetailsActivity extends AppCompatActivity implements View.
 
         activityEquipmentDetailsBinding = DataBindingUtil.setContentView(this, R.layout.activity_equipment_details);
 
-
         itemEquipmentAdapter = new ItemEquipmentAdapter();
-
 
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
         datePickerDialog = new DatePickerDialog(

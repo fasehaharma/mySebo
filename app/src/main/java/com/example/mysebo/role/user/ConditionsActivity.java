@@ -42,17 +42,16 @@ public class ConditionsActivity extends AppCompatActivity implements View.OnClic
     private Date dDateEnd;
 
 
-
     private final String TAG = ConditionsActivity.class.getSimpleName();
 
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth fAuth;
     private ArrayList<Parcelable> equipmentList;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
         activityConditionsBinding = DataBindingUtil.setContentView(this, R.layout.activity_conditions);
 
@@ -99,7 +98,6 @@ public class ConditionsActivity extends AppCompatActivity implements View.OnClic
             String uid = fAuth.getCurrentUser().getUid();
             CollectionReference equipmentReservation = firebaseFirestore.collection("EquipmentReservation");
 
-
             Map<String, Object> newData = new HashMap<>();
 
             newData.put("id",uid);
@@ -110,10 +108,7 @@ public class ConditionsActivity extends AppCompatActivity implements View.OnClic
             newData.put("eventOrganization",sEventOrganization);
             newData.put("phoneNumber", sPhone);
 
-
             equipmentReservation.document().set(newData);
-
         }
-
     }
 }

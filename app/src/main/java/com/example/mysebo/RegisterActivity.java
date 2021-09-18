@@ -28,9 +28,9 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText eName, eEmail, ePassword, ePhone;
     private Button eRegister;
     private TextView eLogin;
-    private FirebaseAuth fAuth;
     private ProgressBar progressBar;
 
+    private FirebaseAuth fAuth;
     private FirebaseFirestore firebaseFirestore;
 
 

@@ -27,13 +27,13 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private ActivityLoginBinding activityLoginBinding;
+
     private EditText eEmail, ePassword;
     private Button eLogin;
     private TextView eCreateAccount, eForgot;
     private ProgressBar progressBar;
     private FirebaseAuth fAuth;
-
-    private ActivityLoginBinding activityLoginBinding;
 
 
     @Override
@@ -48,7 +48,6 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
         }
-
 
 
         eEmail = activityLoginBinding.email;

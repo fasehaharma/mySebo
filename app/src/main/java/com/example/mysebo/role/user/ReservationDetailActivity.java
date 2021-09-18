@@ -28,6 +28,7 @@ public class ReservationDetailActivity extends AppCompatActivity implements View
     private TextInputEditText tietStaffID;
     private TextInputEditText tietPhone;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +74,5 @@ public class ReservationDetailActivity extends AppCompatActivity implements View
         } else if (v == tvBack) {
             finish();
         }
-
     }
 }

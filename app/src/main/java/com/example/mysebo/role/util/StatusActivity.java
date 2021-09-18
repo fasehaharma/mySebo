@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class StatusActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ActivityStatusBinding activityStatusBinding;
+
     private Button btnHome;
     private Button btnLogout;
 

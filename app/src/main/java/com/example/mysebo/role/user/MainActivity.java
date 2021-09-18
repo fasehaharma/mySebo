@@ -18,10 +18,12 @@ import com.google.firebase.auth.FirebaseAuth;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ActivityMainBinding activityMainBinding;
+
     private Button btnLogout;
     private Button btnUpdateUser;
     private Button btnReservation;
     private Button btnStatus;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

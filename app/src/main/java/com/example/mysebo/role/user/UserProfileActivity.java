@@ -46,6 +46,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
     private StorageReference storageReference;
     private ActivityUserProfileBinding activityUserProfileBinding;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +75,6 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
                 Picasso.get().load(uri).into(ivProfilePicture);
             }
         });
-
 
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,8 +116,6 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
                 passwordResetDialog.create().show();
             }
         });
-
-
     }
 
     @Override
