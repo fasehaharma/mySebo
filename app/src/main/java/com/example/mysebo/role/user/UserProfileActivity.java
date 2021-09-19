@@ -22,9 +22,16 @@ import android.widget.Toast;
 
 import com.example.mysebo.R;
 import com.example.mysebo.databinding.ActivityUserProfileBinding;
+import com.example.mysebo.role.user.model.SeboUser;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -32,9 +39,8 @@ import com.squareup.picasso.Picasso;
 
 public class UserProfileActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView tvFullName;
-    private TextView tvEmail;
-    private TextView tvPhone;
+    private EditText etFullName;
+    private EditText etPhone;
 
     private FirebaseAuth fAuth;
 
@@ -45,23 +51,24 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
     private ImageView ivProfilePicture;
     private StorageReference storageReference;
     private ActivityUserProfileBinding activityUserProfileBinding;
+    private  FirebaseUserHelper firebaseUserHelper;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        firebaseUserHelper = new FirebaseUserHelper();
         activityUserProfileBinding = DataBindingUtil.setContentView(this, R.layout.activity_user_profile);
 
-        tvFullName = activityUserProfileBinding.tvName;
-        tvEmail = activityUserProfileBinding.tvEmaillAdd;
-        tvPhone = activityUserProfileBinding.tvPhone;
+        etFullName = activityUserProfileBinding.etName;
+        etPhone = activityUserProfileBinding.etPhone;
 
         btnChange = activityUserProfileBinding.btnChangeProfile;
         btnReset = activityUserProfileBinding.btnResetPassword;
         btnBack = activityUserProfileBinding.btnReturn;
 
-        btnBack.setOnClickListener(this);
+;
 
         ivProfilePicture = activityUserProfileBinding.ProfilePic;
 
@@ -69,13 +76,37 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         storageReference = FirebaseStorage.getInstance().getReference();
 
         StorageReference profileRef = storageReference.child("users/" + fAuth.getCurrentUser().getUid() + "/jpg");
+
+        Task<DocumentSnapshot> seboUserRef = firebaseUserHelper.getSeboUser(fAuth.getCurrentUser().getUid());
+        seboUserRef.addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                SeboUser seboUser = task.getResult().toObject(SeboUser.class);
+
+                etFullName.setText(seboUser.getName());
+                etPhone.setText(seboUser.getPhone());
+            }
+        });
+
+
+
+
         profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 Picasso.get().load(uri).into(ivProfilePicture);
             }
         });
+        btnBack.setOnClickListener(this);
+        btnChange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String fullName = etFullName.getText().toString();
+                String phoneNumber = etPhone.getText().toString();
 
+                firebaseUserHelper.updateUser(fAuth.getUid(),fullName,phoneNumber);
+            }
+        });
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

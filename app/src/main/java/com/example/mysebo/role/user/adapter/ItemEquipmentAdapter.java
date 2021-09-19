@@ -58,11 +58,6 @@ public class ItemEquipmentAdapter extends RecyclerView.Adapter<ItemEquipmentAdap
         public ViewHolder(ItemEquipmentBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
-        }
-
-
-        public void bind(Equipment equipment) {
-            binding.setEquipment(equipment);
 
             binding.etEquipmentName.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -77,6 +72,7 @@ public class ItemEquipmentAdapter extends RecyclerView.Adapter<ItemEquipmentAdap
 
                 @Override
                 public void afterTextChanged(Editable s) {
+                    Equipment equipment = equipmentList.get(getAdapterPosition());
                     equipment.setName(s.toString());
                 }
             });
@@ -95,10 +91,19 @@ public class ItemEquipmentAdapter extends RecyclerView.Adapter<ItemEquipmentAdap
                 @Override
                 public void afterTextChanged(Editable s) {
                     if(!s.toString().isEmpty()) {
+                        Equipment equipment = equipmentList.get(getAdapterPosition());
+
                         equipment.setQuantity(Integer.valueOf(s.toString().trim()));
                     }
                 }
             });
+        }
+
+
+        public void bind(Equipment equipment) {
+            binding.setEquipment(equipment);
+
+
 
         }
     }

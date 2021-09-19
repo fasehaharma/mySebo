@@ -6,6 +6,7 @@ import android.os.Parcelable;
 public class Equipment implements Parcelable {
     private String name;
     private int quantity;
+    private boolean isNew = true;
 
     public Equipment() {
     }
@@ -52,5 +53,13 @@ public class Equipment implements Parcelable {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public boolean isNew() {
+        return isNew;
+    }
+
+    public void setNew(boolean aNew) {
+        isNew = aNew;
     }
 }
