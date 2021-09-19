@@ -3,16 +3,21 @@ package com.example.mysebo.role.user;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mysebo.Constant;
+import com.example.mysebo.LoginActivity;
 import com.example.mysebo.R;
 import com.example.mysebo.databinding.ActivityConditionsBinding;
+import com.example.mysebo.role.util.StatusActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -30,6 +35,7 @@ public class ConditionsActivity extends AppCompatActivity implements View.OnClic
 
     private Button btnSubmit;
     private TextView tvBackPages2;
+    private CheckBox checkBox;
 
     private String sEventOrganization;
     private String sEventName;
@@ -57,6 +63,7 @@ public class ConditionsActivity extends AppCompatActivity implements View.OnClic
 
         btnSubmit = activityConditionsBinding.btnSubmit;
         tvBackPages2 = activityConditionsBinding.tvBackPages2;
+        checkBox = activityConditionsBinding.checkBox;
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         fAuth = FirebaseAuth.getInstance();
@@ -95,6 +102,7 @@ public class ConditionsActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View v) {
         if(v == btnSubmit){
+            if(checkBox.isChecked()){
             String uid = fAuth.getCurrentUser().getUid();
             CollectionReference equipmentReservation = firebaseFirestore.collection("EquipmentReservation");
 
@@ -109,6 +117,13 @@ public class ConditionsActivity extends AppCompatActivity implements View.OnClic
             newData.put("phoneNumber", sPhone);
 
             equipmentReservation.document().set(newData);
+
+                Toast.makeText(ConditionsActivity.this, "Successfully Submit.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+        }else{
+                Toast.makeText(ConditionsActivity.this, "Please tick checkbox.", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }
