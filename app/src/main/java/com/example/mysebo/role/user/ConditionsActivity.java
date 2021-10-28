@@ -17,6 +17,7 @@ import com.example.mysebo.Constant;
 import com.example.mysebo.LoginActivity;
 import com.example.mysebo.R;
 import com.example.mysebo.databinding.ActivityConditionsBinding;
+import com.example.mysebo.role.user.model.SeboUser;
 import com.example.mysebo.role.util.StatusActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -108,13 +109,14 @@ public class ConditionsActivity extends AppCompatActivity implements View.OnClic
 
             Map<String, Object> newData = new HashMap<>();
 
-            newData.put("id",uid);
+            newData.put("userId",uid);
             newData.put("dateEnd",dDateEnd);
             newData.put("dateStart",dDateStart);
             newData.put("equipment",equipmentList);
             newData.put("eventName",sEventName);
             newData.put("eventOrganization",sEventOrganization);
             newData.put("phoneNumber", sPhone);
+            newData.put("userEmail", fAuth.getCurrentUser().getEmail());
 
             equipmentReservation.document().set(newData);
 

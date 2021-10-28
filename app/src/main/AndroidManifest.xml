@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.mysebo">
+    package="com.example.mysebo" >
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -10,8 +10,14 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MySEBO">
-        <activity android:name=".role.util.StatusActivity"></activity>
+        android:theme="@style/Theme.MySEBO" >
+        <activity
+            android:name=".role.util.StatusDetailActivity"
+            android:exported="true" />
+        <activity
+            android:name=".role.user.ChooseAssetActivity"
+            android:exported="true" />
+        <activity android:name=".role.util.StatusActivity" />
         <activity android:name=".role.user.ConditionsActivity" />
         <activity android:name=".role.user.EquipmentDetailsActivity" />
         <activity android:name=".role.user.ReservationDetailActivity" />
@@ -23,11 +29,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity"/>
-
-        <activity android:name=".role.user.MainActivity">
-
-        </activity>
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".role.user.MainActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

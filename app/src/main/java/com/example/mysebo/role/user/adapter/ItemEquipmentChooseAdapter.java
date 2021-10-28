@@ -4,30 +4,31 @@ import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mysebo.databinding.ItemEquipmentBinding;
+import com.example.mysebo.databinding.ItemEquiptmentChooseBinding;
 import com.example.mysebo.role.user.model.Equipment;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class ItemEquipmentAdapter extends RecyclerView.Adapter<ItemEquipmentAdapter.ViewHolder> {
+public class ItemEquipmentChooseAdapter extends RecyclerView.Adapter<ItemEquipmentChooseAdapter.ViewHolder> {
 
     private ArrayList<Equipment> equipmentList = new ArrayList<>();
+    private  OnEquipmentCallBack onEquipmentCallBack;
 
-
-    public ItemEquipmentAdapter() {
+    public ItemEquipmentChooseAdapter() {
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        ItemEquipmentBinding itemBinding = ItemEquipmentBinding.inflate(layoutInflater, parent, false);
+        ItemEquiptmentChooseBinding itemBinding = ItemEquiptmentChooseBinding.inflate(layoutInflater, parent, false);
         return new ViewHolder(itemBinding);
     }
 
@@ -50,38 +51,27 @@ public class ItemEquipmentAdapter extends RecyclerView.Adapter<ItemEquipmentAdap
         return equipmentList;
     }
 
-    public void addItem(String id, String equipmentName) {
-        boolean isContainId = false;
-        for (int i = 0; i < equipmentList.size(); i++) {
-
-            Equipment equipment = equipmentList.get(i);
-            isContainId = equipment.getId().equals(id);
-
-            if(isContainId){
-                break;
-            }
-
-        }
-
-        if(!isContainId){
-            Equipment equipment = new Equipment();
-            equipment.setItem(equipmentName);
-            equipment.setId(id);
-
-            equipmentList.add(equipment);
-
-            notifyItemInserted(getItemCount() + 1);
-        }
-
+    public interface OnEquipmentCallBack {
+        void onEquipmentCallBack(Equipment equipment);
     }
 
+    public void setOnEquipmentCallBack(OnEquipmentCallBack onEquipmentCallBack) {
+        this.onEquipmentCallBack = onEquipmentCallBack;
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private ItemEquipmentBinding binding;
+        private ItemEquiptmentChooseBinding binding;
 
-        public ViewHolder(ItemEquipmentBinding binding) {
+        public ViewHolder(ItemEquiptmentChooseBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
+
+            binding.getRoot().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onEquipmentCallBack.onEquipmentCallBack(equipmentList.get(getAdapterPosition()));
+                }
+            });
 
 
             binding.etQuantity.addTextChangedListener(new TextWatcher() {
@@ -109,7 +99,7 @@ public class ItemEquipmentAdapter extends RecyclerView.Adapter<ItemEquipmentAdap
 
         public void bind(Equipment equipment) {
             binding.setEquipment(equipment);
-
+            binding.etQuantity.setText(String.valueOf(equipment.getQuantity()));
 
 
         }

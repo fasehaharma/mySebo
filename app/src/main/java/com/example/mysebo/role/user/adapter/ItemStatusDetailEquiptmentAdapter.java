@@ -10,24 +10,24 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mysebo.databinding.ItemEquipmentBinding;
+import com.example.mysebo.databinding.ItemStatusDetailEquiptmentBinding;
 import com.example.mysebo.role.user.model.Equipment;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class ItemEquipmentAdapter extends RecyclerView.Adapter<ItemEquipmentAdapter.ViewHolder> {
+public class ItemStatusDetailEquiptmentAdapter extends RecyclerView.Adapter<ItemStatusDetailEquiptmentAdapter.ViewHolder> {
 
     private ArrayList<Equipment> equipmentList = new ArrayList<>();
 
 
-    public ItemEquipmentAdapter() {
+    public ItemStatusDetailEquiptmentAdapter() {
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        ItemEquipmentBinding itemBinding = ItemEquipmentBinding.inflate(layoutInflater, parent, false);
+        ItemStatusDetailEquiptmentBinding itemBinding = ItemStatusDetailEquiptmentBinding.inflate(layoutInflater, parent, false);
         return new ViewHolder(itemBinding);
     }
 
@@ -77,9 +77,9 @@ public class ItemEquipmentAdapter extends RecyclerView.Adapter<ItemEquipmentAdap
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private ItemEquipmentBinding binding;
+        private ItemStatusDetailEquiptmentBinding binding;
 
-        public ViewHolder(ItemEquipmentBinding binding) {
+        public ViewHolder(ItemStatusDetailEquiptmentBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
 
@@ -109,7 +109,7 @@ public class ItemEquipmentAdapter extends RecyclerView.Adapter<ItemEquipmentAdap
 
         public void bind(Equipment equipment) {
             binding.setEquipment(equipment);
-
+            binding.etQuantity.setText(String.valueOf(equipment.getQuantity()));
 
 
         }

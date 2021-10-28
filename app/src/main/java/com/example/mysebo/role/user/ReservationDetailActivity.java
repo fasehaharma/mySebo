@@ -5,9 +5,11 @@ import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mysebo.Constant;
 import com.example.mysebo.R;
@@ -64,13 +66,23 @@ public class ReservationDetailActivity extends AppCompatActivity implements View
             Log.d(TAG, "onClick: "+ sPhone);
 
 
-            Intent intent = new Intent(this, EquipmentDetailsActivity.class);
-            intent.putExtra(Constant.EVENT_ORGANIZATION,sEventClub);
-            intent.putExtra(Constant.EVENT_NAME,sEventName);
-            intent.putExtra(Constant.STAFF_ID,sStaffID);
-            intent.putExtra(Constant.PHONE_NUMBER,sPhone);
-            startActivity(intent);
+            if(TextUtils.isEmpty(sEventClub)){
+                Toast.makeText(ReservationDetailActivity.this, "Please fill in", Toast.LENGTH_LONG).show();
+            }else if(TextUtils.isEmpty(sEventName)){
+                Toast.makeText(ReservationDetailActivity.this, "Please fill in", Toast.LENGTH_LONG).show();
+            }else if(TextUtils.isEmpty(sStaffID)){
+                Toast.makeText(ReservationDetailActivity.this, "Please fill in", Toast.LENGTH_LONG).show();
+            }else if (TextUtils.isEmpty(sPhone)){
+                Toast.makeText(ReservationDetailActivity.this, "Please fill in", Toast.LENGTH_LONG).show();
+            }else{
 
+                Intent intent = new Intent(this, EquipmentDetailsActivity.class);
+                intent.putExtra(Constant.EVENT_ORGANIZATION, sEventClub);
+                intent.putExtra(Constant.EVENT_NAME, sEventName);
+                intent.putExtra(Constant.STAFF_ID, sStaffID);
+                intent.putExtra(Constant.PHONE_NUMBER, sPhone);
+                startActivity(intent);
+            }
         } else if (v == tvBack) {
             finish();
         }

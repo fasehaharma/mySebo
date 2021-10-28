@@ -4,7 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Equipment implements Parcelable {
-    private String name;
+    private String id;
+    private String item;
     private int quantity;
     private boolean isNew = true;
 
@@ -12,19 +13,10 @@ public class Equipment implements Parcelable {
     }
 
     protected Equipment(Parcel in) {
-        name = in.readString();
+        id = in.readString();
+        item = in.readString();
         quantity = in.readInt();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(name);
-        dest.writeInt(quantity);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
+        isNew = in.readByte() != 0;
     }
 
     public static final Creator<Equipment> CREATOR = new Creator<Equipment>() {
@@ -39,12 +31,21 @@ public class Equipment implements Parcelable {
         }
     };
 
-    public String getName() {
-        return name;
+    public String getId() {
+        return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+
+    public String getItem() {
+        return item;
+    }
+
+    public void setItem(String item) {
+        this.item = item;
     }
 
     public int getQuantity() {
@@ -61,5 +62,18 @@ public class Equipment implements Parcelable {
 
     public void setNew(boolean aNew) {
         isNew = aNew;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(item);
+        dest.writeInt(quantity);
+        dest.writeByte((byte) (isNew ? 1 : 0));
     }
 }
