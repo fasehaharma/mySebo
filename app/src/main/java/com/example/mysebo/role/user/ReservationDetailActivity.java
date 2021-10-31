@@ -20,7 +20,7 @@ public class ReservationDetailActivity extends AppCompatActivity implements View
 
     private ActivityReservationDetailBinding activityReservationDetailBinding;
 
-    private static final String TAG = "Hensem";
+    private static final String TAG = "Reservation";
 
     private TextView tvNextPage;
     private TextView tvBack;

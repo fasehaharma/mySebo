@@ -35,7 +35,6 @@ public class ConditionsActivity extends AppCompatActivity implements View.OnClic
     private ActivityConditionsBinding activityConditionsBinding;
 
     private Button btnSubmit;
-    private TextView tvBackPages2;
     private CheckBox checkBox;
 
     private String sEventOrganization;
@@ -63,7 +62,6 @@ public class ConditionsActivity extends AppCompatActivity implements View.OnClic
         activityConditionsBinding = DataBindingUtil.setContentView(this, R.layout.activity_conditions);
 
         btnSubmit = activityConditionsBinding.btnSubmit;
-        tvBackPages2 = activityConditionsBinding.tvBackPages2;
         checkBox = activityConditionsBinding.checkBox;
 
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -97,7 +95,6 @@ public class ConditionsActivity extends AppCompatActivity implements View.OnClic
         }
 
         btnSubmit.setOnClickListener(this);
-        tvBackPages2.setOnClickListener(this);
     }
 
     @Override
