@@ -5,6 +5,24 @@ public class SeboUser {
     private String id;
     private String name;
     private String phone;
+    private boolean verify;
+    private String type;
+
+    public boolean isVerify() {
+        return verify;
+    }
+
+    public void setVerify(boolean verify) {
+        this.verify = verify;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getEmail() {
         return email;

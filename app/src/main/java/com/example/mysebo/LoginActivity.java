@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -86,8 +87,16 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(LoginActivity.this, "Logged in successfully.", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            FirebaseUser currentUser = fAuth.getCurrentUser();
+
+                            if(currentUser.isEmailVerified()){
+                                Toast.makeText(LoginActivity.this, "Logged in successfully.", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            }else {
+                                Toast.makeText(LoginActivity.this, "Please Verify Email." , Toast.LENGTH_SHORT).show();
+                                currentUser.sendEmailVerification();
+                            }
+
                         } else {
                             Toast.makeText(LoginActivity.this, "Error!" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);
