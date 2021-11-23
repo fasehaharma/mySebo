@@ -8,4 +8,7 @@ public class Constant {
     public static final String EQUIPMENT_LIST = "equipment_list";
     public static final String DATE_START ="date_start";
     public static final String DATE_END = "date_end";
+    public static final String LETTER_PATH = "pdf_letter";
+    public static final String ID_PATH = "pdf_id";
+
 }

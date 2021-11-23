@@ -44,6 +44,9 @@ public class EquipmentDetailsActivity extends AppCompatActivity implements View.
     private String sEventName;
     private String sStaffID;
     private String sPhone;
+    private String sLetter;
+    private String sID;
+
 
     private String sDateStart;
     private String sDateEnd;
@@ -81,11 +84,16 @@ public class EquipmentDetailsActivity extends AppCompatActivity implements View.
         sEventName = extras.getString(Constant.EVENT_NAME);
         sStaffID = extras.getString(Constant.STAFF_ID);
         sPhone = extras.getString(Constant.PHONE_NUMBER);
+        sLetter = extras.getString(Constant.LETTER_PATH);
+        sID = extras.getString(Constant.ID_PATH);
+
 
         Log.d(TAG, "onCreate: " + sEventClub);
         Log.d(TAG, "onCreate: " + sEventName);
         Log.d(TAG, "onCreate: " + sStaffID);
         Log.d(TAG, "onCreate: " + sPhone);
+        Log.d(TAG, "onCreate: " + sLetter);
+        Log.d(TAG, "onCreate: " + sID);
 
         tvNextPage2 = activityEquipmentDetailsBinding.tvNextPage2;
         tvBackPages = activityEquipmentDetailsBinding.tvBackPages;
@@ -124,6 +132,8 @@ public class EquipmentDetailsActivity extends AppCompatActivity implements View.
                 bundle.putString(Constant.EVENT_NAME, sEventName);
                 bundle.putString(Constant.STAFF_ID, sStaffID);
                 bundle.putString(Constant.PHONE_NUMBER, sPhone);
+                bundle.putString(Constant.LETTER_PATH, sLetter);
+                bundle.putString(Constant.ID_PATH, sID);
 
                 bundle.putString(Constant.DATE_START, sDateStart);
                 bundle.putString(Constant.DATE_END, sDateEnd);

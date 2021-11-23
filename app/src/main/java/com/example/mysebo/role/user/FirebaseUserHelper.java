@@ -1,14 +1,12 @@
 package com.example.mysebo.role.user;
 
-import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.mysebo.RegisterActivity;
 import com.example.mysebo.role.user.model.Equipment;
 import com.example.mysebo.role.user.model.Reservation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,23 +20,31 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public class FirebaseUserHelper {
     private MutableLiveData<ArrayList<Equipment>> equipmentListMutableLiveData = new MutableLiveData<>();
 
     private final FirebaseFirestore mFirestore;
+    private final FirebaseStorage mStorage;
+    
     private String TAG = FirebaseUserHelper.class.getSimpleName();
     private MutableLiveData<List<Reservation>> reservationListMutableLiveData = new MutableLiveData<>();
     private MutableLiveData<Reservation> reservationMutableLiveData = new MutableLiveData<>();
 
     public FirebaseUserHelper() {
+        mStorage = FirebaseStorage.getInstance();
         mFirestore = FirebaseFirestore.getInstance();
     }
+    
 
     public Task<DocumentSnapshot> getSeboUser(String userId){
        return FirebaseFirestore.getInstance().collection("user").document(userId).get();
@@ -139,5 +145,29 @@ public class FirebaseUserHelper {
                 reservationMutableLiveData.postValue(reservation);
             }
         });
+    }
+
+    public String uploadPDFLetter(Uri pdfUri) {
+        String uuid = UUID.randomUUID().toString();
+        final StorageReference filepath = mStorage.getReference().child("/Letter/" + uuid + "." + "pdf");
+        filepath.putFile(pdfUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@androidx.annotation.NonNull Task<UploadTask.TaskSnapshot> task) {
+                Log.d(TAG, "onComplete: ");
+            }
+        });
+        return filepath.getPath();
+    }
+
+    public String uploadPDFID(Uri pdfUri) {
+        String uuid = UUID.randomUUID().toString();
+        final StorageReference filepath = mStorage.getReference().child("/ID/" + uuid + "." + "pdf");
+        filepath.putFile(pdfUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@androidx.annotation.NonNull Task<UploadTask.TaskSnapshot> task) {
+                Log.d(TAG, "onComplete: ");
+            }
+        });
+        return filepath.getPath();
     }
 }

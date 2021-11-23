@@ -43,6 +43,8 @@ public class ConditionsActivity extends AppCompatActivity implements View.OnClic
     private String sPhone;
     private String sDateStart;
     private String sDateEnd;
+    private String sLetter;
+    private String sID;
 
     private Date dDateStart;
     private Date dDateEnd;
@@ -75,6 +77,8 @@ public class ConditionsActivity extends AppCompatActivity implements View.OnClic
         sPhone = extras.getString(Constant.PHONE_NUMBER);
         sDateStart = extras.getString(Constant.DATE_START);
         sDateEnd = extras.getString(Constant.DATE_END);
+        sLetter = extras.getString(Constant.LETTER_PATH);
+        sID = extras.getString(Constant.ID_PATH);
         equipmentList = this.getIntent().getExtras().getParcelableArrayList(Constant.EQUIPMENT_LIST);
 
 
@@ -82,6 +86,8 @@ public class ConditionsActivity extends AppCompatActivity implements View.OnClic
         Log.d(TAG, "onCreate: " + sEventName);
         Log.d(TAG, "onCreate: " + sStaffID);
         Log.d(TAG, "onCreate: " + sPhone);
+        Log.d(TAG, "onCreate: " + sLetter);
+        Log.d(TAG, "onCreate: " + sID);
 
         Log.d(TAG, "onCreate:" + sDateStart);
         Log.d(TAG, "onCreate:" + sDateEnd);
@@ -113,6 +119,8 @@ public class ConditionsActivity extends AppCompatActivity implements View.OnClic
             newData.put("eventName",sEventName);
             newData.put("eventOrganization",sEventOrganization);
             newData.put("phoneNumber", sPhone);
+            newData.put("letterPath", sLetter);
+            newData.put("idPath", sID);
             newData.put("userEmail", fAuth.getCurrentUser().getEmail());
 
             equipmentReservation.document().set(newData);
