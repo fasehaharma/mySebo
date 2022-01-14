@@ -3,5 +3,5 @@
     <string name="welcome_to_sebo">Welcome to SEBO</string>
     <string name="hint_password">password</string>
     <string name="hint_email">Email</string>
-    <string name="rule">1. Peminjam dipertanggungjawap sepenuhnya atas keselamatan peralatan yang dipinjam. \n 2. Semua peralatan yan dipinjam MESTILAH dipulangkan pada tarikh yang ditetapkan. \n 3. Peralatan-peralatan yang kotor hendaklah dibersihkkan dahulu sebelum dipulangkan. \n 4. Peminjam perlu melaporkan secara bertulis sekiranya berlaku kerosakan atau kehilangan peralatan yang dipinjamkan kepada Pusat Sukan. \n 5. Kelewatan memulangkan peralatan yang dipinjam akan dikenakan  denda RM 1.00 sehari.</string>
+    <string name="rule">1. The borrower is fully responsible for the safety of the equipment borrowed. \ n 2. All borrowed equipment MUST be returned on the due date. \ n 3. Dirty equipment must be cleaned before being returned. \ n 4. Borrowers must report in writing in the event of damage or loss of equipment lent to the Sports Center. \ n 5. Delay in returning borrowed equipment will incur a fine of RM 1.00 per day.</string>
 </resources>

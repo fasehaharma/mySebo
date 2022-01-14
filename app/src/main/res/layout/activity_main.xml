@@ -114,5 +114,24 @@
             app:layout_constraintTop_toBottomOf="@+id/btnStatus"
             app:layout_constraintVertical_bias="0.102" />
 
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:background="@color/white"
+            android:text="Any further inquiries regarding the reservation can contact Mr. Zul Rusydi at number +60 12 - 299 1860 "
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnLogout"
+            app:layout_constraintVertical_bias="0.198" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
